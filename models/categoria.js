@@ -1,13 +1,19 @@
-module.exports = (sequelize, DataTypes) => {
-    const categoria = sequelize.define('categoria', {
-        nombre: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        descripcion: DataTypes.TEXT
-    }, {})
-    categoria.associate = function(models) {
-        categoria.hasMany(models.producto, {foreignKey: 'categoriaId'})
-    }
-    return categoria
-}
+const { DataTypes } = require('sequelize');
+
+module.exports = (sequelize) => {
+  const Categoria = sequelize.define('Categoria', {
+    nombre: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    descripcion: {
+      type: DataTypes.TEXT,
+    },
+  }, {
+    tableName: 'categoria',
+    timestamps: false,
+  });
+
+  return Categoria;
+};
+

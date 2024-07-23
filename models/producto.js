@@ -1,22 +1,33 @@
-module.exports = (sequelize, DataTypes) => {
-    const producto = sequelize.define('producto', {
-        nombre: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        descripcion: DataTypes.TEXT,
-        precio: {
-            type: DataTypes.DECIMAL(10, 2),
-            allowNull: false
-        },
-        stock: {
-            type: DataTypes.INTEGER,
-            allowNull: false
-        },
-        categoriaId: DataTypes.INTEGER
-    }, {})
-    producto.associate = function(models) {
-        producto.hasMany(models.categoria, {foreignKey: 'categoriaId'})
-    }
-    return producto
-}
+const { DataTypes } = require('sequelize');
+
+module.exports = (sequelize) => {
+  const Producto = sequelize.define('Producto', {
+    nombre: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    descripcion: {
+      type: DataTypes.TEXT,
+    },
+    precio: {
+      type: DataTypes.DECIMAL(10, 2),
+      allowNull: false,
+    },
+    stock: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    categoriaId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'categoria',
+        key: 'id',
+      },
+    },
+  }, {
+    tableName: 'producto',
+    timestamps: false,
+  });
+
+  return Producto;
+};

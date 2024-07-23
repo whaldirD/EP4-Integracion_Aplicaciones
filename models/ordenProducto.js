@@ -1,20 +1,31 @@
-module.exports = (sequelize, DataTypes) => {
-    const ordenproducto = sequelize.define('ordenproducto', {
-        ordenId: {
-            type: DataTypes.INTEGER,
-            allowNull: false
-        },
-        productoId:  {
-            type: DataTypes.INTEGER,
-            allowNull:false
-        },
-        cantidad: {
-            type: DataTypes.INTEGER,
-            allowNull:false
-        }
-    }, {})
-    ordenproducto.associate = function(models) {
+const { DataTypes } = require('sequelize');
 
-    }
-    return ordenproducto
-}
+module.exports = (sequelize) => {
+  const OrdenProducto = sequelize.define('OrdenProducto', {
+    ordenId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'orden',
+        key: 'id',
+      },
+    },
+    productoId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'producto',
+        key: 'id',
+      },
+    },
+    cantidad: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+  }, {
+    tableName: 'ordenproducto',
+    timestamps: false, 
+  });
+
+  return OrdenProducto;
+};
